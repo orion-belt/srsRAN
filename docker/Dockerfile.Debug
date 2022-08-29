@@ -75,8 +75,8 @@ COPY --from=builder  /usr/local/bin/uhd* /usr/local/bin/
 WORKDIR /srsran/bin
 COPY --from=builder /usr/local/bin/srsenb \
                     /usr/local/bin/srsue \
-                    /srsRAN/docker/entrypoint.sh /srsran/bin/
+                    /srsRAN/docker/entrypoint_Debug.sh /srsran/bin/
 
-ENTRYPOINT ["/srsran/bin/entrypoint.sh"]
-#CMD ["sleep", "infinity"]
+#ENTRYPOINT ["/srsran/bin/entrypoint.sh"]
+CMD ["sleep", "infinity"]
 
