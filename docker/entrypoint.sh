@@ -35,11 +35,13 @@ echo -e  "Done setting the configuration\n"
 echo -e  "Running gNB Service \n"
 ./srsenb &
 
-sleep 2
+sleep 5
 
-echo -e  "Running UE Service \n"
-ip netns add ue1
-./srsue
+if [[ ${RUN_ZMQ_UE} == "yes" ]];then
+        echo -e  "Running UE Service \n"
+        ip netns add ue1
+        ./srsue
+fi
 
 exec "$@"
 
