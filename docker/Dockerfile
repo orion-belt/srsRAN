@@ -21,10 +21,6 @@ RUN apt update && \
      libboost-all-dev libusb-1.0-0-dev doxygen python3-docutils python3-mako python3-numpy python3-requests python3-ruamel.yaml python3-setuptools && \
      rm -rf /var/lib/apt/lists/*
 
-RUN git clone https://github.com/EttusResearch/uhd.git ~/uhd && \
-    cd ~/uhd && git checkout v3.15.0.0 && cd host && mkdir build && \
-    cd build && cmake ../ && make -j 4 && make install && ldconfig
-
 #COPY . /srsRAN
 RUN git clone https://github.com/srsran/srsRAN.git -b release_22_04_1
 COPY docker/* /srsRAN/docker/
@@ -48,7 +44,6 @@ COPY --from=builder /usr/local/share/srsran/rb.conf.example /root/.config/srsran
 COPY --from=builder /srsRAN/docker/*.conf /root/.config/srsran/
 
 COPY --from=builder /usr/local/lib/libsrsran_* \
-                    /usr/local/lib/libuhd.so.3.15.0 \
                     /usr/local/lib/
 
 COPY --from=builder /usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0 \
@@ -69,8 +64,6 @@ COPY --from=builder /usr/lib/x86_64-linux-gnu/libboost_program_options.so.1.71.0
                     /usr/local/lib/libsrsran_rf_zmq.so.0 \
                     /usr/lib/x86_64-linux-gnu/libfftw3f.so.3 /usr/lib/x86_64-linux-gnu/
 RUN ldconfig
-
-COPY --from=builder  /usr/local/bin/uhd* /usr/local/bin/ 
 
 WORKDIR /srsran/bin
 COPY --from=builder /usr/local/bin/srsenb \
