@@ -9,9 +9,9 @@ services:
       NGAP_LOCAL_ADDR: 192.168.70.163
       NGAP_REMOTE_ADDR: 192.168.70.132 # AMF IP ADDR
       GTPU_LOCAL_ADDR: 192.168.70.163
-      MCC: 001
-      MNC: 01
-      TAC: 40960
+      MCC: "001"
+      MNC: "01"
+      TAC: 1
       GNBID: 0x19B
       DL_ARFCN: 368500
       BAND: 3
@@ -19,7 +19,7 @@ services:
       RX_GAIN: 40
       DEVICE_NAME: zmq # 'zmq' for simulation, 'auto' while using uhd
       # UE config
-      RUN_ZMQ_UE: yes
+      RUN_ZMQ_UE: "yes"
       OPC: 63bfa50ee6523365ff14c1f45f88737d
       KEY: 0C0A34601D4F07677303652C0462535B
       DNN: default
