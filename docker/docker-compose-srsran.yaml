@@ -11,7 +11,7 @@ services:
       GTPU_LOCAL_ADDR: 192.168.70.163
       MCC: 001
       MNC: 01
-      TAC: 0x00a000
+      TAC: 40960
       GNBID: 0x19B
       DL_ARFCN: 368500
       BAND: 3
@@ -31,8 +31,6 @@ services:
     networks:
       public_net:
           ipv4_address: 192.168.70.163
-      public_net_access:
-          ipv4_address: 192.168.72.163
     healthcheck:
       test: /bin/bash -c "ip addr | grep uetun1"
       interval: 10s
@@ -42,6 +40,3 @@ networks:
     public_net:
         external:
             name: demo-oai-public-net
-    public_net_access:
-        external:
-            name: oai-public-access
