@@ -43,12 +43,13 @@ FROM $BASE_IMAGE as srsran
 
 RUN apt update && apt install iproute2 libzmq3-dev -y
 
-COPY --from=builder /usr/local/share/srsran/sib.conf.example /root/.config/srsran/sib.conf
-COPY --from=builder /usr/local/share/srsran/rb.conf.example /root/.config/srsran/rb.conf
-COPY --from=builder /srsRAN/docker/enb_srs.conf /root/.config/srsran/
-COPY --from=builder /srsRAN/docker/sib_srs.conf /root/.config/srsran/
-COPY --from=builder /srsRAN/docker/rr_srs.conf /root/.config/srsran/
-COPY --from=builder /srsRAN/docker/rb_srs.conf /root/.config/srsran/
+#COPY --from=builder /usr/local/share/srsran/sib.conf.example /root/.config/srsran/sib.conf
+#COPY --from=builder /usr/local/share/srsran/rb.conf.example /root/.config/srsran/rb.conf
+COPY --from=builder /srsRAN/docker/enb_srs.conf /root/.config/srsran/enb.conf
+COPY --from=builder /srsRAN/docker/sib_srs.conf /root/.config/srsran/sib.conf
+COPY --from=builder /srsRAN/docker/rr_srs.conf /root/.config/srsran/rr.conf
+COPY --from=builder /srsRAN/docker/rb_srs.conf /root/.config/srsran/rb.conf
+COPY --from=builder /srsRAN/docker/ue.conf /root/.config/srsran/ue.conf
 
 COPY --from=builder /usr/local/lib/libsrsran_* \
                     /usr/local/lib/libuhd.so.3.15.0 \
