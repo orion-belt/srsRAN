@@ -1,0 +1,41 @@
+version: '3.8'
+services:
+  srsran:
+    image: rohankharade/srsran:latest
+    container_name: srsran
+    privileged: true
+    environment:
+      # Gnb Config
+      NGAP_LOCAL_ADDR: 192.168.70.163
+      NGAP_REMOTE_ADDR: 192.168.70.132 # AMF IP ADDR
+      GTPU_LOCAL_ADDR: 192.168.70.163
+      MCC: 001
+      MNC: 01
+      TAC: 40960
+      GNBID: 0x19B
+      DL_ARFCN: 368500
+      BAND: 3
+      TX_GAIN: 80
+      RX_GAIN: 40
+      DEVICE_NAME: zmq # 'zmq' for simulation, 'auto' while using uhd
+      # UE config
+      RUN_ZMQ_UE: yes
+      OPC: 63bfa50ee6523365ff14c1f45f88737d
+      KEY: 0C0A34601D4F07677303652C0462535B
+      DNN: default
+      IMSI: 208950000000031
+      PDU_TYPE: ipv4
+    cap_add:
+      - NET_ADMIN
+    networks:
+      public_net:
+          ipv4_address: 192.168.70.163
+    healthcheck:
+      test: /bin/bash -c "ip addr | grep uetun1"
+      interval: 10s
+      timeout: 5s
+      retries: 5
+networks:
+    public_net:
+        external:
+            name: demo-oai-public-net
