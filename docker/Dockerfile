@@ -37,7 +37,7 @@ RUN cd srsRAN && \
 ARG BASE_IMAGE=ubuntu:focal
 FROM $BASE_IMAGE as srsran
 
-RUN apt update && apt install iproute2 libzmq3-dev -y
+RUN apt update && apt install iproute2 net-tools iputils-ping libzmq3-dev -y
 
 COPY --from=builder /usr/local/share/srsran/sib.conf.example /root/.config/srsran/sib.conf
 COPY --from=builder /usr/local/share/srsran/rb.conf.example /root/.config/srsran/rb.conf
